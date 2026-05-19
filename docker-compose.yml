@@ -1,0 +1,21 @@
+services:
+  credential-provider:
+    build: .
+    container_name: credential-provider-sso
+    environment:
+      - AWS_PROFILE=${AWS_PROFILE:-default}
+    volumes:
+      - ${HOME}/.aws/config:/home/appuser/.aws/config:ro
+      - ${HOME}/.aws/sso/cache:/home/appuser/.aws/sso/cache:ro
+    networks:
+      network:
+        ipv4_address: 169.254.170.2
+    restart: unless-stopped
+
+networks:
+  network:
+    name: credentials_provider_network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 169.254.170.0/24
