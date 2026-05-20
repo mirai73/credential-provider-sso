@@ -75,13 +75,3 @@ aws sso login --profile my-sso-profile
 ```
 
 The container will automatically pick up the new token on the next request (the cache directory is mounted live).
-
-## Differences from Isengard Version
-
-| | Isengard Version | SSO Version |
-|---|---|---|
-| Auth method | Midway + isengardcli | `aws sso login` |
-| Dependencies | Isengard CLI (cloned into image) | boto3 only |
-| Image size | ~500MB | ~150MB |
-| Token source | Midway cookies | `~/.aws/sso/cache/` |
-| Refresh | `mwinit` | `aws sso login` |
